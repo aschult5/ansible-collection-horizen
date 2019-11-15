@@ -1,0 +1,46 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: molecule_horizen
+    image: geerlingguy/docker-${TARGET_DISTRO:-ubuntu1804}-ansible:latest
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/run/docker.sock:/mnt/docker.sock
+    tmpfs:
+      - /tmp
+      - /run
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+  options:
+    skip-tags: swap
+  inventory:
+    hosts:
+      all:
+        vars:
+          zend_docker_host: unix:///mnt/docker.sock
+          zend_docker_ctr_name: HorizenZend
+          zend_docker_ctr_stop_timeout: 300
+          zend_docker_net_name: HorizenNet
+  env:
+    ANSIBLE_ROLES_PATH: ${MOLECULE_PROJECT_DIRECTORY}/roles
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  env:
+    # Verify doesn't have access to ansible variables.
+    # Copy the necessary ones as environment variables.
+    ZEND_DOCKER_HOST: unix:///mnt/docker.sock
+    ZEND_DOCKER_CTR_NAME: HorizenZend
+    ZEND_DOCKER_CTR_STOP_TIMEOUT: '300'
+    ZEND_DOCKER_NET_NAME: HorizenNet

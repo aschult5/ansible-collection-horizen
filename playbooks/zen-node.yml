@@ -1,0 +1,12 @@
+---
+- hosts: all
+  gather_facts: yes
+
+  roles:
+  - role: geerlingguy.swap
+    vars:
+      swap_swappiness: '10'
+    tags: swap
+
+  - role: aschult5.zend
+    tags: always
