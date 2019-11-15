@@ -1,0 +1,20 @@
+namespace: aschult5
+
+name: horizen
+
+version: 1.0.0
+
+readme: README.md
+
+authors:
+  - Andrew Schultz <aschult5@gmail.com>
+
+description: your collection description
+
+license_file: 'LICENSE'
+
+repository: http://github.com/aschult5/ansible-collection-horizen
+
+documentation: http://github.com/aschult5/ansible-collection-horizen
+
+issues: http://github.com/aschult5/ansible-collection-horizen/issues
