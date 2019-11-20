@@ -1,0 +1,28 @@
+---
+language: python
+services: docker
+
+env:
+  global:
+    - COLLECTION_NAMESPACE: aschult5
+    - COLLECTION_NAME: horizen
+  matrix:
+    - TARGET_DISTRO: ubuntu1804
+    - TARGET_DISTRO: ubuntu1604
+    - TARGET_DISTRO: debian9
+
+install:
+  - pip install 'molecule[docker]'
+
+before_script:
+  # Move the collection into the required path.
+  - cd ../
+  - mkdir -p ansible_collections/$COLLECTION_NAMESPACE
+  - mv ansible-collection-$COLLECTION_NAME ansible_collections/$COLLECTION_NAMESPACE/$COLLECTION_NAME
+  - cd ansible_collections/$COLLECTION_NAMESPACE/$COLLECTION_NAME
+
+script:
+  - molecule test
+
+# notifications:
+#   webhooks: https://galaxy.ansible.com/api/v1/notifications/
