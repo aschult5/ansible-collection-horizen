@@ -1,6 +1,28 @@
 ---
 - hosts: all
   gather_facts: yes
+  vars:
+    zend_user_name: zenops
+    zend_user_id: 1001
+    zend_user_home: /home/{{ zend_user_name }}
+    zend_user_shell: /bin/bash
+    zend_user_groups_default: [ 'adm', 'systemd-journal', 'sudo' ]
+    zend_user_groups: []
+
+  pre_tasks:
+  - name: Create user groups
+    group:
+      name: "{{ item }}"
+    loop: "{{ zend_user_groups_default + zend_user_groups }}"
+
+  - name: Create user
+    user:
+      name: "{{ zend_user_name }}"
+      uid: "{{ zend_user_id }}"
+      comment: "{{ zend_user_name }}"
+      shell: "{{ zend_user_shell }}"
+      groups: "{{ (zend_user_groups_default + zend_user_groups) | join(',') }}"
+      home: "{{ zend_user_home }}"
 
   roles:
   - role: geerlingguy.swap
