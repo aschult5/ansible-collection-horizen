@@ -1,16 +1,29 @@
-# Ansible Collection - aschult5.horizen
+# Ansible Collection: horizen
 
-### What
-Deploy various [Horizen](https://www.horizen.global/) blockchain applications.
-- Secure Node
-- Super Node
-- Full Node
+[![Build Status](https://travis-ci.org/aschult5/ansible-collection-horizen.svg?branch=master)](https://travis-ci.org/aschult5/ansible-collection-horizen)
 
-### Why
-To make it easier for people to create Horizen Nodes.
+Configures a [Horizen](https://www.horizen.global/) secure, super, or full node on Debian/Ubuntu servers.
 
-### How
-Wait for further instruction.
+## Requirements
 
-### When
-Soon.
+None.
+
+## Collection Variables
+
+See roles' variables.
+
+## Dependencies
+
+See roles' dependencies.
+
+## Example Playbook Invocation
+
+TODO
+
+## License
+
+MIT
+
+## Author Information
+
+This role was created in 2019 by Andrew Schultz for use with [Nodeler](https://www.nodeler.com)
