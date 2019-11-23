@@ -12,6 +12,11 @@
     apt: update_cache=true cache_valid_time=600
     when: ansible_os_family == 'Debian'
 
+  - name: Upgrade pip
+    pip:
+      name: pip
+      version: 19.3.1
+
   # https://github.com/geerlingguy/docker-debian9-ansible/issues/10
   - name: Install systemd-sysv
     apt: name=systemd-sysv
