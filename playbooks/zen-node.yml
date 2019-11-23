@@ -11,6 +11,8 @@
     zend_user_groups_default: [ 'adm', 'systemd-journal', 'sudo' ]
     zend_user_groups: []
     zend_zcash_srcvol: zcash-params
+    zend_port_p2p: "9033"
+    firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
 
   pre_tasks:
   - name: Create user groups
@@ -60,6 +62,9 @@
     vars:
       swap_swappiness: '10'
     tags: swap
+
+  - role: geerlingguy.firewall
+    tags: firewall
 
   - role: aschult5.zend
     tags: always

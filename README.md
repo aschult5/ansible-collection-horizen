@@ -12,6 +12,11 @@ None.
 
 See roles' variables.
 
+	zend_port_p2p: "9033"
+	firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
+
+Zend P2P port and the list of ports to open in firewall.
+
 ## Dependencies
 
 See roles' dependencies.
