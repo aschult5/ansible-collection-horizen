@@ -2,6 +2,7 @@
 - hosts: all
   gather_facts: yes
   vars:
+    zend_ver: latest
     zend_user_name: zenops
     zend_user_id: 9001
     zend_group_name: zenops
@@ -10,9 +11,13 @@
     zend_user_shell: /bin/bash
     zend_user_groups_default: [ 'adm', 'systemd-journal', 'sudo' ]
     zend_user_groups: []
+    zend_svc_name: zend
     zend_zcash_srcvol: zcash-params
     zend_port_p2p: "9033"
     firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
+    certbot_certs:
+      - domains:
+        - "{{ inventory_hostname }}"
 
   pre_tasks:
   - name: Create user groups
@@ -57,6 +62,18 @@
     retries: 5
     delay: 10
 
+  - name: Add required ports for certificate generation to allow list
+    when: certbot_create_if_missing | d()
+    set_fact:
+      firewall_allowed_tcp_ports: "{{ (firewall_allowed_tcp_ports + ['80', '443']) | unique }}"
+    tags:
+      - firewall
+      - certificate
+
+  - name: Install systemd-cron for certbot
+    apt: name=systemd-cron
+    tags: certificate
+
   roles:
   - role: geerlingguy.swap
     vars:
@@ -65,6 +82,18 @@
 
   - role: geerlingguy.firewall
     tags: firewall
+
+  - role: geerlingguy.certbot
+    vars:
+      certbot_auto_renew_user: root
+      certbot_auto_renew_options: "-q --deploy-hook \"systemctl restart {{ zend_svc_name }}\""
+      certbot_auto_renew_hour: "6"
+      certbot_auto_renew_minute: "0"
+      certbot_create_standalone_stop_services: []
+      certbot_certs:
+      - domains:
+        - "{{ inventory_hostname }}"
+    tags: certificate
 
   - role: aschult5.zend
     tags: always

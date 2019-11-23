@@ -6,7 +6,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: molecule_horizen
+  - name: horizen.molecule
     image: geerlingguy/docker-${TARGET_DISTRO:-ubuntu1804}-ansible:latest
     override_command: false
     volumes:

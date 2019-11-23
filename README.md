@@ -6,7 +6,17 @@ Configures a [Horizen](https://www.horizen.global/) secure, super, or full node 
 
 ## Requirements
 
+#### Full Nodes
 None.
+
+#### Secure Nodes
+'A' DNS record resolution.
+Ansible invoked with the FQDN of the target host.
+
+#### Super Nodes
+'A' DNS record resolution.
+'AAAA' DNS record resolution.
+Ansible invoked with the FQDN of the target host.
 
 ## Collection Variables
 
@@ -16,10 +26,24 @@ See roles' variables.
 	firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
 
 Zend P2P port and the list of ports to open in firewall.
+If a certificate will be generated (`certbot_create_if_missing`),
+ports 80 and 443 will be added to `firewall_allowed_tcp_ports`.
+
+	certbot_create_if_missing: false
+	certbot_auto_renew: true
+	certbot_admin_email: email@example.com
+
+A valid server certificate is required for secure/super nodes.
+Ansible's `inventory_hostname` is used as the FQDN for certificate generation.
+Set `certbot_admin_email` to something useful if you enable `certbot_create_if_missing`.
 
 ## Dependencies
 
 See roles' dependencies.
+
+- geerlingguy.swap
+- geerlingguy.certbot
+- geerlingguy.docker
 
 ## Example Playbook Invocation
 
