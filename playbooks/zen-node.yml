@@ -9,7 +9,7 @@
     zend_group_id: 9001
     zend_user_home: /home/{{ zend_user_name }}
     zend_user_shell: /bin/bash
-    zend_user_groups_default: [ 'adm', 'systemd-journal', 'sudo' ]
+    zend_user_groups_default: [ "adm", "systemd-journal", "sudo", "{{ zend_group_name }}"]
     zend_user_groups: []
     zend_svc_name: zend
     zend_zcash_srcvol: zcash-params
@@ -20,6 +20,11 @@
         - "{{ inventory_hostname }}"
 
   pre_tasks:
+  - name: Create zend group with gid
+    group:
+      name: "{{ zend_group_name }}"
+      gid: "{{ zend_group_id }}"
+
   - name: Create user groups
     group:
       name: "{{ item }}"
