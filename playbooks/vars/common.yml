@@ -1,0 +1,16 @@
+---
+zend_ver: latest
+zend_user_name: zenops
+zend_user_id: 9001
+zend_group_name: zenops
+zend_group_id: 9001
+zend_user_home: /home/{{ zend_user_name }}
+zend_user_shell: /bin/bash
+zend_user_groups_default: ["adm", "systemd-journal", "sudo", "{{ zend_group_name }}"]
+zend_user_groups: []
+zend_port_p2p: "9033"
+zend_zcash_srcvol: zcash-params
+zend_docker_host: unix:///var/run/docker.sock
+firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
+swap_swappiness: "10"
+docker_install_compose: false

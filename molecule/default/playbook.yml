@@ -1,28 +1,27 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    pip_version: '19.3.1'
 
   pre_tasks:
   - name: Update apt cache
     apt: update_cache=true cache_valid_time=600
     when: ansible_os_family == 'Debian'
 
-  - name: Upgrade pip
-    pip:
-      name: pip
-      version: 19.3.1
-
   # https://github.com/geerlingguy/docker-debian9-ansible/issues/10
   - name: Install systemd-sysv
     apt: name=systemd-sysv
     when: ansible_os_family == 'Debian'
 
+  - name: Install/Upgrade pip
+    pip:
+      name: pip
+      version: "{{ pip_version }}"
+
 - name: Import zen-node playbook
   import_playbook: ../../playbooks/zen-node.yml
   vars:
-    docker_install_compose: false
     docker_service_state: stopped
     docker_service_enabled: false
     docker_restart_handler_state: stopped
-    certbot_create_if_missing: false
-    certbot_auto_renew: true

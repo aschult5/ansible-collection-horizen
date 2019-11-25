@@ -1,0 +1,13 @@
+---
+certbot_create_if_missing: false
+certbot_admin_email: email@example.com
+certbot_auto_renew: true
+certbot_auto_renew_user: root
+zend_svc_name: zend
+certbot_auto_renew_options: "-q --deploy-hook \"systemctl restart {{ zend_svc_name }}\""
+certbot_auto_renew_hour: "6"
+certbot_auto_renew_minute: "0"
+certbot_create_standalone_stop_services: []
+certbot_certs:
+  - domains:
+    - "{{ inventory_hostname }}"

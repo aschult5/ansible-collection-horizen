@@ -1,0 +1,33 @@
+---
+- name: common
+  hosts: all
+  gather_facts: yes
+  vars_files:
+    - vars/common.yml
+
+  pre_tasks:
+  - name: Import user tasks
+    import_tasks: tasks/user.yml
+    tags: user
+
+  - name: Import certificate (dependency) tasks
+    import_tasks: tasks/certificate.yml
+    tags: certificate
+
+  roles:
+  - role: geerlingguy.swap
+    tags: swap
+
+  - role: geerlingguy.firewall
+    tags: firewall
+
+  - role: geerlingguy.certbot
+    tags: certificate
+
+  - role: geerlingguy.docker
+    tags: always
+
+  post_tasks:
+  - name: Pre-fetch zcash params
+    import_tasks: tasks/fetch-params.yml
+    tags: prefetch

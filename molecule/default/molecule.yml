@@ -20,7 +20,7 @@ platforms:
 provisioner:
   name: ansible
   options:
-    skip-tags: swap
+    skip-tags: swap,prefetch
   inventory:
     hosts:
       all:
