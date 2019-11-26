@@ -1,3 +1,6 @@
 [submodule "aschult5.zend"]
 	path = roles/aschult5.zend
 	url = https://github.com/aschult5/ansible-role-zend.git
+[submodule "aschult5.zen_nodetracker"]
+	path = roles/aschult5.zen_nodetracker
+	url = https://github.com/aschult5/ansible-role-zen_nodetracker.git

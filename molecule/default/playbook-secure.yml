@@ -4,7 +4,7 @@
 
   pre_tasks:
   - name: Update apt cache
-    apt: update_cache=true cache_valid_time=1200
+    apt: update_cache=true cache_valid_time=600
     when: ansible_os_family == 'Debian'
 
   # https://github.com/geerlingguy/docker-debian9-ansible/issues/10
@@ -17,9 +17,11 @@
       name: pip
       version: "{{ pip_version }}"
 
-- name: Import zen-node playbook
-  import_playbook: ../../playbooks/zen-node.yml
+- name: Import secure-node playbook
+  import_playbook: ../../playbooks/secure-node.yml
   vars:
+    nodetracker_alert_email: devnull@email.com
+    nodetracker_stake_taddr: znADummyZenTAddress35CharsLongggggg
     docker_service_state: stopped
     docker_service_enabled: false
     docker_restart_handler_state: stopped

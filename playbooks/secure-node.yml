@@ -1,0 +1,11 @@
+---
+- name: Import common playbook
+  import_playbook: common.yml
+
+- name: secure-node
+  hosts: all
+  gather_facts: yes
+
+  roles:
+  - role: aschult5.zen_nodetracker
+    tags: always

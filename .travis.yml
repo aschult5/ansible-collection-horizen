@@ -11,6 +11,14 @@ env:
     - TARGET_DISTRO: ubuntu1604
     - TARGET_DISTRO: debian9
 
+    # Test secure node creation
+    - TARGET_DISTRO: ubuntu1804
+      TARGET_PLAYBOOK: playbook-secure.yml
+    - TARGET_DISTRO: ubuntu1604
+      TARGET_PLAYBOOK: playbook-secure.yml
+    - TARGET_DISTRO: debian9
+      TARGET_PLAYBOOK: playbook-secure.yml
+
 install:
   - pip install 'molecule[docker]'
 
