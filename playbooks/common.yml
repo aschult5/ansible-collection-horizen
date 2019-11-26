@@ -26,8 +26,3 @@
 
   - role: geerlingguy.docker
     tags: always
-
-  post_tasks:
-  - name: Pre-fetch zcash params
-    import_tasks: tasks/fetch-params.yml
-    tags: prefetch
