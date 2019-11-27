@@ -6,10 +6,6 @@
     - vars/common.yml
 
   pre_tasks:
-  - name: Import user tasks
-    import_tasks: tasks/user.yml
-    tags: user
-
   - name: Import certificate (dependency) tasks
     import_tasks: tasks/certificate.yml
     tags: certificate
