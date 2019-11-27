@@ -6,6 +6,7 @@ env:
   global:
     - COLLECTION_NAMESPACE: aschult5
     - COLLECTION_NAME: horizen
+    - NODETRACKER_DIR: /mnt/nodetracker
   matrix:
     - TARGET_DISTRO: ubuntu1804
     - TARGET_DISTRO: ubuntu1604
