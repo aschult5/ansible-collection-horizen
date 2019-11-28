@@ -1,6 +1,6 @@
 # Ansible Collection: horizen
 
-[![Build Status](https://travis-ci.org/aschult5/ansible-collection-horizen.svg?branch=master)](https://travis-ci.org/aschult5/ansible-collection-horizen)
+[![Build Status](https://travis-ci.com/aschult5/ansible-collection-horizen.svg?branch=master)](https://travis-ci.com/aschult5/ansible-collection-horizen)
 
 Configures a [Horizen](https://www.horizen.global/) secure, super, or full node on Debian/Ubuntu servers.
 
