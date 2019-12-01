@@ -1,0 +1,31 @@
+---
+# Dependencies
+- name: Install ufw
+  apt: name=ufw
+
+# Firewall
+- name: ufw allow outgoing
+  ufw:
+    policy: allow
+    direction: outgoing
+  notify: ufw enable
+
+- name: ufw deny incoming
+  ufw:
+    policy: deny
+    direction: incoming
+  notify: ufw enable
+
+- name: ufw limit ssh/tcp
+  ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+  notify: ufw enable
+
+- name: ufw allow zend/tcp
+  ufw:
+    rule: allow
+    port: "{{ zend_port_p2p }}"
+    proto: tcp
+  notify: ufw enable

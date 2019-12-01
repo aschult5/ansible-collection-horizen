@@ -25,13 +25,6 @@ See also [playbooks/vars](playbooks/vars).
 See also [roles](roles) variables.
 See also [dependencies'](#dependencies) variables.
 
-	zend_port_p2p: "9033"
-	firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
-
-Zend P2P port and the list of ports to open in firewall.
-If a certificate will be generated (`certbot_create_if_missing`),
-ports 80 and 443 will be added to `firewall_allowed_tcp_ports`.
-
 	certbot_create_if_missing: false
 	certbot_admin_email: email@example.com
 	certbot_auto_renew: true
@@ -52,7 +45,6 @@ If present, allocate `swap_file_size_mb` disk space to the file.
 See roles' dependencies.
 
 - [geerlingguy.swap](https://galaxy.ansible.com/geerlingguy/swap)
-- [geerlingguy.firewall](https://galaxy.ansible.com/geerlingguy/firewall)
 - [geerlingguy.certbot](https://galaxy.ansible.com/geerlingguy/certbot)
 - [geerlingguy.docker](https://galaxy.ansible.com/geerlingguy/docker)
 

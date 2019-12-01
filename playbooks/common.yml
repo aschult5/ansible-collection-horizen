@@ -5,7 +5,17 @@
   vars_files:
     - vars/common.yml
 
+  handlers:
+  - name: ufw enable
+    ufw:
+      state: enabled
+      logging: "on"
+
   pre_tasks:
+  - name: Import firewall tasks
+    import_tasks: tasks/firewall.yml
+    tags: firewall
+
   - name: Import certificate (dependency) tasks
     import_tasks: tasks/certificate.yml
     tags: certificate
@@ -13,9 +23,6 @@
   roles:
   - role: geerlingguy.swap
     tags: swap
-
-  - role: geerlingguy.firewall
-    tags: firewall
 
   - role: geerlingguy.certbot
     tags: certificate

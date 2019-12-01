@@ -1,5 +1,4 @@
 ---
 zend_port_p2p: "9033"
-firewall_allowed_tcp_ports: ["22", "{{ zend_port_p2p }}"]
 swap_swappiness: "10"
 docker_install_compose: false

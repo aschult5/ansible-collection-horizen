@@ -6,10 +6,22 @@
   when: certbot_auto_renew
   apt: name=systemd-cron
 
-- name: Add certificate generation ports (http/https) to firewall allowed list
-  when:
-    - certbot_create_if_missing | d()
-  set_fact:
-    firewall_allowed_tcp_ports: "{{ (firewall_allowed_tcp_ports|d([]) + ['80', '443']) | unique }}"
+- name: ufw allow http/tcp for cert generation
+  when: certbot_create_if_missing | d()
+  ufw:
+    rule: allow
+    port: http
+    proto: tcp
+  notify: ufw enable
+  tags:
+    - firewall
+
+- name: ufw allow https/tcp for cert generation
+  when: certbot_create_if_missing | d()
+  ufw:
+    rule: allow
+    port: https
+    proto: tcp
+  notify: ufw enable
   tags:
     - firewall
