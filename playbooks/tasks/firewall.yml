@@ -3,6 +3,14 @@
 - name: Install ufw
   apt: name=ufw
 
+- name: Disable IPv6
+  lineinfile:
+    path: /etc/default/ufw
+    regexp: "^IPV6="
+    line: "IPV6={{ ipv6enable }}"
+  vars:
+    ipv6enable: "{{ 'yes' if firewall_enable_ipv6|d() else 'no' }}"
+
 # Firewall
 - name: ufw allow outgoing
   ufw:
