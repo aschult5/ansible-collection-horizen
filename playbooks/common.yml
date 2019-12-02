@@ -12,6 +12,9 @@
       logging: "on"
 
   pre_tasks:
+  - name: Install pip
+    apt: name=python3-pip
+
   - name: Import firewall tasks
     import_tasks: tasks/firewall.yml
     tags: firewall
