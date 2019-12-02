@@ -16,12 +16,21 @@
     direction: incoming
   notify: ufw enable
 
-- name: ufw limit ssh/tcp
-  ufw:
-    rule: limit
-    port: ssh
-    proto: tcp
-  notify: ufw enable
+- name: ufw limit ssh block
+  block:
+  - name: ufw limit ssh/tcp
+    ufw:
+      rule: limit
+      port: ssh
+      proto: tcp
+    notify: ufw enable
+  rescue:
+  - name: ufw limit 22/tcp
+    ufw:
+      rule: limit
+      port: '22'
+      proto: tcp
+    notify: ufw enable
 
 - name: ufw allow zend/tcp
   ufw:

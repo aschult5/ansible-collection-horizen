@@ -8,20 +8,38 @@
 
 - name: ufw allow http/tcp for cert generation
   when: certbot_create_if_missing | d()
-  ufw:
-    rule: allow
-    port: http
-    proto: tcp
-  notify: ufw enable
+  block:
+  - name: ufw allow http
+    ufw:
+      rule: allow
+      port: http
+      proto: tcp
+    notify: ufw enable
+  rescue:
+  - name: ufw allow 80
+    ufw:
+      rule: allow
+      port: '80'
+      proto: tcp
+    notify: ufw enable
   tags:
     - firewall
 
-- name: ufw allow https/tcp for cert generation
+- name: ufw allow http/tcp for cert generation
   when: certbot_create_if_missing | d()
-  ufw:
-    rule: allow
-    port: https
-    proto: tcp
-  notify: ufw enable
+  block:
+  - name: ufw allow https
+    ufw:
+      rule: allow
+      port: https
+      proto: tcp
+    notify: ufw enable
+  rescue:
+  - name: ufw allow 443
+    ufw:
+      rule: allow
+      port: '443'
+      proto: tcp
+    notify: ufw enable
   tags:
     - firewall
