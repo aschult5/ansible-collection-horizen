@@ -5,6 +5,7 @@
 - name: secure-node
   hosts: all
   gather_facts: yes
+  become: yes
 
   roles:
   - role: aschult5.zen_nodetracker
